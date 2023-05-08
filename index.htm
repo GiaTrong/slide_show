@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./css.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="main">
+            <img class="img-feature" src="./alrear/anh (1).jpg">
+            <div class="control prev">
+                <i class="fa-solid fa-chevron-left"></i>
+            </div>
+            <div class="control next">
+                <i class="fa-solid fa-angle-right"></i>
+            </div>
+        </div>
+        <div class="list-image">
+            <div class="active"> <img src="./alrear/anh (1).jpg" alt=""></div>
+            <div> <img src="./alrear/anh (2).jpg" alt=""></div>
+            <div> <img src="./alrear/anh (3).jpg" alt=""></div>
+            <div> <img src="./alrear/anh (4).jpg" alt=""></div>
+            <div> <img src="./alrear/anh (5).jpg" alt=""></div>
+            <div> <img src="./alrear/anh (6).jpg" alt=""></div>
+            <div> <img src="./alrear/anh (7).jpg" alt=""></div>
+            <div> <img src="./alrear/anh (8).jpg" alt=""></div>
+        </div>
+    </div>
+
+    <script>
+        var imgFeature = document.querySelector('.img-feature')
+        var listImg = document.querySelectorAll('.list-image img')
+        var prevBtn = document.querySelector('.prev')
+        var nextBtn = document.querySelector('.next')
+
+        var currentIndex = 0;
+
+        //
+        function updateIndex(index) {
+            //remove active class
+            document.querySelectorAll('.list-image div').forEach(item => {
+                    item.classList.remove('active')
+                })
+                //
+            currentIndex = index
+            imgFeature.src = listImg[index].getAttribute('src')
+                //
+            listImg[index].parentElement.classList.add('active');
+        }
+
+        listImg.forEach((imgElement, index) => {
+            imgElement.addEventListener('click', e => {
+                imgFeature.style.opacity = '0';
+
+                setTimeout(() => {
+                    updateIndex(index);
+                    imgFeature.style.opacity = '1';
+                }, 400)
+            })
+        })
+
+        prevBtn.addEventListener('click', e => {
+
+            imgFeature.style.animation = '';
+
+            if (currentIndex == 0) {
+                currentIndex = listImg.length - 1;
+            } else {
+                currentIndex--;
+            }
+
+            setTimeout(() => {
+                imgFeature.style.animation = 'slideLeft 1s ease-in-out forwards';
+                updateIndex(currentIndex);
+            })
+        })
+
+        nextBtn.addEventListener('click', e => {
+
+            imgFeature.style.animation = '';
+
+            if (currentIndex == listImg.length - 1) {
+                currentIndex = 0;
+            } else {
+                currentIndex++;
+            }
+            //
+            setTimeout(() => {
+                imgFeature.style.animation = 'slideRight 1s ease-in-out forwards';
+                updateIndex(currentIndex);
+            })
+        })
+    </script>
+</body>
+
+</html>
